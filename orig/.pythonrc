@@ -1,0 +1,22 @@
+import atexit
+import os
+import re
+import readline
+import rlcompleter
+import sys
+import time
+import timeit
+
+#prepare the history
+history = os.path.expanduser('~/.python_history')
+readline.set_history_length(1000)
+if not os.path.isfile(history):
+    open(history, 'a').close()
+readline.read_history_file(history)
+atexit.register(readline.write_history_file, history)
+del history
+    
+readline.parse_and_bind('tab: complete')
+
+def t(*args):
+    return timeit.Timer(*args).timeit()

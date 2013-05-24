@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/var/autofs/net/home/estani'
+let g:netrw_dirhist_2='/var/autofs/net/home/estani/.gnupg'
+let g:netrw_dirhist_3='/var/autofs/net/home/estani'
+let g:netrw_dirhist_4='/var/autofs/net/home/estani/.vim'
+let g:netrw_dirhist_5='/var/autofs/net/home/estani/.vim/colors'
+let g:netrw_dirhist_6='/var/autofs/net/home/estani/.vim'
