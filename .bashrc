@@ -12,7 +12,7 @@ fi
 alias ..='cd ..'
 alias sv="env | grep"
 alias h="history | grep"
-alias grep="grep --color=auto"
+alias grep="grep --color=always"
 
 #some standard settings
 export EDITOR=/usr/bin/vim
@@ -38,3 +38,13 @@ source $CUR_DIR/.git_bashrc
 
 #for devbox spring development
 export SPRING_PROFILES_ACTIVE=devbox
+
+#local setup for pybackend
+export MYVIDEO_SETTINGS=devbox_settings.DevboxTestSettings
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+    export PATH
+fi
+

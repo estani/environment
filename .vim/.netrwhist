@@ -1,4 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/home/egonzalez'
-let g:netrw_dirhist_2='/home/egonzalez/my_config'
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/tmp/migration/pybackend'
+let g:netrw_dirhist_2='/home/egonzalez/tmp/migration'
+let g:netrw_dirhist_3='/home/egonzalez/my_config'
+let g:netrw_dirhist_4='/home/egonzalez/my_config/orig'
+let g:netrw_dirhist_5='/home/egonzalez/my_config/orig/orig'
+let g:netrw_dirhist_6='/home/egonzalez/my_config/orig'
+let g:netrw_dirhist_7='/home/egonzalez/my_config'
+let g:netrw_dirhist_8='/home/egonzalez'
+let g:netrw_dirhist_9='/home/egonzalez/my_config'

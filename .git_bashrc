@@ -1,7 +1,56 @@
-alias gll="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+
+#git aliases
+#git config alias.ls 'diff --name-status'
+#git config alias.ll "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --left-right"
+
+alias gls="git ls"
+alias gll="git ll"
+alias glist='for ref in $(git for-each-ref --sort=-committerdate --format="%(refname)" refs/heads/ refs/remotes ); do git log -n1 $ref --pretty=format:"%Cgreen%cr%Creset %C(yellow)%d%Creset %C(bold blue)<%an>%Creset%n" | cat ; done | awk '"'! a["'$0'"]++'"
+
 alias gc='git checkout'
 alias gst='git status --ignore-submodules'
 alias gb='git branch'
+alias gpush='git push origin HEAD'
+
+alias gfeature1='git_jenkins_tags feature1'
+alias gfeature2='git_jenkins_tags feature2'
+
+
+function git_show_branches() {
+    for branch in $(git branch -a); do 
+        echo $'\n------------------- '${branch}' ----------------------------'
+        git --no-pager ll -n 2  ${branch}
+    done
+    echo
+}
+
+function git_jenkins_tags() {
+    local tag="$1"
+    local error=
+
+    echo Fetching tags
+    git fetch --tags
+
+    if [ -z "$(git log --pretty=short -n 1 "refs/tags/$tag" | grep $(sed -n '/^[[]user[]]/,/^[[]/ s/\s*name\s*=\s*\([a-Z]*\)/\1/p' ~/.gitconfig))" ]; then
+        echo "You are not the owner of the tag, aborting automatic push."
+        error=1
+    fi
+    if ((!error)); then
+        echo "Moving tag $tag"
+        git log --pretty=medium -n 1 refs/tags/"$tag"
+        git tag --force "$tag"
+        if ! git push origin refs/tags/"$tag"; then
+            echo "Remote is not accepting the change."
+            error=1
+        fi
+    fi
+    
+    if ((error)); then
+        git log --pretty=medium -n 1 refs/tags/"$tag"
+        echo Aborting automatic tag pushing. Do it manually:
+        echo "git tag --force '$tag' && git push --tags --force origin 'refs/tags/$tag'"
+    fi
+}
 
 function git_info() {
 

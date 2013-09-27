@@ -1,9 +1,0 @@
-[color]
-  ui = true
-  #branch = auto
-  #diff = auto
-  #status = auto
-
-[user]
- name = estani@miklip
- email = estanislao.gonzalez@met.fu-berlin.de
