@@ -42,6 +42,11 @@ export SPRING_PROFILES_ACTIVE=devbox
 #local setup for pybackend
 export MYVIDEO_SETTINGS=devbox_settings.DevboxTestSettings
 
+#add current bin to path if exists
+if [ -d "$CUR_DIR/bin" ] ; then
+    PATH="$CUR_DIR/bin:$PATH"
+    export PATH
+fi
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"

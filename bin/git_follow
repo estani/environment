@@ -1,0 +1,12 @@
+#!/bin/bash
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+remote=origin
+
+if ! git config branch.$current_branch.remote >/dev/null; then
+    echo "Following branch $current_branch from $remote"
+    git config branch.$current_branch.remote $remote
+    git config branch.$current_branch.merge refs/heads/$current_branch
+else
+    echo "branch is already configured"
+fi
