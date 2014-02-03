@@ -3,9 +3,11 @@
 #git config alias.ls 'diff --name-status'
 #git config alias.ll "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --left-right"
 
-alias gls="git ls"
-alias gll="git ll"
+alias gls='git diff --name-status'
+alias gll="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --left-right"
 alias glist='for ref in $(git for-each-ref --sort=-committerdate --format="%(refname)" refs/heads/ refs/remotes ); do git log -n1 $ref --pretty=format:"%Cgreen%cr%Creset %C(yellow)%d%Creset %C(bold blue)<%an>%Creset%n" | cat ; done | awk '"'! a["'$0'"]++'"
+
+alias gfiles='git show --pretty="format:" --name-only'
 
 alias gc='git checkout'
 alias gst='git status --ignore-submodules'
