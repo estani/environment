@@ -13,9 +13,12 @@ alias gc='git checkout'
 alias gst='git status --ignore-submodules'
 alias gb='git branch'
 alias gpush='git push origin HEAD'
+alias gfetch='git fetch -v'
+alias gf='gfetch'
 
 alias gfeature1='git_jenkins_tags feature1'
 alias gfeature2='git_jenkins_tags feature2'
+alias gintegration='git_jenkins_tags integration'
 
 
 function git_show_branches() {
@@ -26,33 +29,6 @@ function git_show_branches() {
     echo
 }
 
-function git_jenkins_tags() {
-    local tag="$1"
-    local error=
-
-    echo Fetching tags
-    git fetch --tags
-
-    if [ -z "$(git log --pretty=short -n 1 "refs/tags/$tag" | grep $(sed -n '/^[[]user[]]/,/^[[]/ s/\s*name\s*=\s*\([a-Z]*\)/\1/p' ~/.gitconfig))" ]; then
-        echo "You are not the owner of the tag, aborting automatic push."
-        error=1
-    fi
-    if ((!error)); then
-        echo "Moving tag $tag"
-        git log --pretty=medium -n 1 refs/tags/"$tag"
-        git tag --force "$tag"
-        if ! git push origin refs/tags/"$tag"; then
-            echo "Remote is not accepting the change."
-            error=1
-        fi
-    fi
-    
-    if ((error)); then
-        git log --pretty=medium -n 1 refs/tags/"$tag"
-        echo Aborting automatic tag pushing. Do it manually:
-        echo "git tag --force '$tag' && git push --tags --force origin 'refs/tags/$tag'"
-    fi
-}
 
 function git_info() {
 
@@ -135,4 +111,11 @@ git_ps() {
     fi
 }
 #turn git prompt on by default
-git_ps on >/dev/null
+#git_ps on >/dev/null
+
+# Set config variables first
+GIT_PROMPT_ONLY_IN_REPO=1
+
+# as last entry source the gitprompt script
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$DIR/bash-git-prompt/gitprompt.sh"
