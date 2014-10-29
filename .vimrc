@@ -37,3 +37,7 @@ set textwidth=0
 "Color scheme
 :hi CursorLine cterm=NONE ctermbg=17
 :set cursorline
+
+filetype on
+filetype plugin on
+filetype indent on

@@ -5,6 +5,7 @@
 
 alias gls='git diff --name-status'
 alias gll="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --left-right"
+alias gllrm='git log --all --pretty=format: --name-only --diff-filter=D'
 alias glist='for ref in $(git for-each-ref --sort=-committerdate --format="%(refname)" refs/heads/ refs/remotes ); do git log -n1 $ref --pretty=format:"%Cgreen%cr%Creset %C(yellow)%d%Creset %C(bold blue)<%an>%Creset%n" | cat ; done | awk '"'! a["'$0'"]++'"
 
 alias gfiles='git show --pretty="format:" --name-only'
@@ -16,8 +17,8 @@ alias gpush='git push origin HEAD'
 alias gfetch='git fetch -v'
 alias gf='gfetch'
 
-alias gfeature1='git_jenkins_tags feature1'
-alias gfeature2='git_jenkins_tags feature2'
+alias gfeature1='git_jenkins_feature_tag.sh feature1'
+alias gfeature2='git_jenkins_feature_tag.sh feature2'
 alias gintegration='git_jenkins_tags integration'
 
 
@@ -115,6 +116,7 @@ git_ps() {
 
 # Set config variables first
 GIT_PROMPT_ONLY_IN_REPO=1
+GIT_PROMPT_THEME=Solarized
 
 # as last entry source the gitprompt script
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
