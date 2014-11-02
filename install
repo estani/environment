@@ -1,0 +1,24 @@
+#!/bin/bash
+CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+install_bashrc() {
+    echo "Updating .bashrc"
+    echo "source $CUR_DIR/.bashrc" >> ~/.bashrc
+}
+
+install_vim() {
+    echo "updating vim"
+    [[ ! -d ~/.vim ]] && mkdir ~/.vim
+    for f in $(find $CUR_DIR/.vim -mindepth 1 -type d); do
+        ln_target="$HOME/.vim/$(basename "$f")"
+        [[ ! -h "$ln_target" ]] && ln -s $f "$ln_target"
+    done
+}
+
+[[ ! -d ~/.vim ]] && install_vim
+
+if ! grep -q "/$( basename "$CUR_DIR")/.bashrc" ~/.bashrc; then
+    install_bashrc
+fi
+
+
