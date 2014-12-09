@@ -21,4 +21,5 @@ if ! grep -q "/$( basename "$CUR_DIR")/.bashrc" ~/.bashrc; then
     install_bashrc
 fi
 
-
+git submodule init
+git submodule update
