@@ -7,15 +7,16 @@ install_bashrc() {
 }
 
 install_vim() {
-    echo "updating vim"
+    echo "Updating vim"
     [[ ! -d ~/.vim ]] && mkdir ~/.vim
-    for f in $(find $CUR_DIR/.vim -mindepth 1 -type d); do
+    for f in $(find $CUR_DIR/.vim -maxdepth 1 -type d); do
         ln_target="$HOME/.vim/$(basename "$f")"
         [[ ! -h "$ln_target" ]] && ln -s $f "$ln_target"
     done
+    [[ ! -f ~/.vimrc ]] && ln -s $CUR_DIR/.vimrc ~/.vimrc
 }
 
-[[ ! -d ~/.vim ]] && install_vim
+install_vim
 
 if ! grep -q "/$( basename "$CUR_DIR")/.bashrc" ~/.bashrc; then
     install_bashrc

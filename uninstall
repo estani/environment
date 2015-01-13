@@ -1,0 +1,19 @@
+#!/bin/bash
+CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+uninstall_bashrc() {
+    echo "Cleaning .bashrc"
+    sed -i "s#^source $CUR_DIR/\.bashrc##" ~/.bashrc
+}
+
+uninstall_vim() {
+    echo "removing vim links"
+    find ~/.vim -type l -lname "$CUR_DIR/.vim/*" -delete
+}
+
+[[ -d ~/.vim ]] && uninstall_vim
+
+if grep -q "/$( basename "$CUR_DIR")/.bashrc" ~/.bashrc; then
+    uninstall_bashrc
+fi
+
