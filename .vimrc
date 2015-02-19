@@ -41,3 +41,5 @@ set textwidth=0
 filetype on
 filetype plugin on
 filetype indent on
+
+execute pathogen#infect()
