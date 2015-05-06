@@ -36,12 +36,6 @@ export PYTHONSTARTUP=$CUR_DIR/.pythonrc
 #now load some aliases
 source $CUR_DIR/.git_bashrc
 
-#for devbox spring development
-export SPRING_PROFILES_ACTIVE=devbox
-
-#local setup for pybackend
-export MYVIDEO_SETTINGS=devbox_settings.DevboxTestSettings
-
 #add current bin to path if exists
 if [ -d "$CUR_DIR/bin" ] ; then
     PATH="$CUR_DIR/bin:$PATH"

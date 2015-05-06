@@ -5,7 +5,7 @@ colorscheme desert256
 
 
 "indentation & Co
-set softtabstop=4 shiftwidth=4 expandtab
+set softtabstop=4 shiftwidth=4 tabstop=4 expandtab
 syntax on
 
 " Enable the mouse
