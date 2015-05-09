@@ -47,3 +47,10 @@ if [ -d "$HOME/bin" ] ; then
     export PATH
 fi
 
+#single history for all sessions
+shopt -s histappend
+HISTSIZE=10000
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
