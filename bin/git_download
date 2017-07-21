@@ -1,0 +1,40 @@
+#!/bin/bash
+usage() {
+cat <<EOF
+Usage: 
+	$(basename $0) repo file [file] [...]
+
+    download file(s) from git repo.
+
+options:
+$(sed -n '/^#PARAMS/,/PARAMS END/{
+    /OPTARG/  s/^[\t ]*\([^)]*\))[^#]*;; *# *\(.*\)$/\1 <val>: \2/p;
+    /OPTARG/! s/^[\t ]*\([^)]*\))[^#]*;; *# *\(.*\)$/\1: \2/p}' $0)
+
+Example:
+    $(basename $0) git@repo.365farmnet.com:GreenTeam/com.farmnet365.field.git doc/swagger.yaml
+EOF
+}
+
+#PARAMS
+while getopts "onvh" opt; do
+    case "$opt" in
+        o) output=1;;           #to STDOUT
+        n) dryrun=1;;           #don't actually do anything
+        v) verbose=1;;          #be more verbose
+        h) usage; exit 0;;      #show this help
+        *) echo "Unkown Option $opt" >&2; usage; exit 1;;
+    esac
+done
+shift $((OPTIND-1))
+#PARAMS END
+repo="$1"
+shift
+
+get_git_tar() {
+    git archive --remote="$repo" HEAD "$@"
+}
+
+[[ "$output" ]] && tarOpts="${tarOpts}O"
+
+get_git_tar "$@" | tar -x$tarOpts
