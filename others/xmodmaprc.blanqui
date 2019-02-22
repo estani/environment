@@ -1,0 +1,14 @@
+!these lines are just comments
+
+!making menu key usefull
+!keycode 135 = Menu NoSymbol Menu
+keycode 135 = ISO_Level3_Shift NoSymbol ISO_Level3_Shift
+
+!changing the not usefull macron symbol by a dead_tilde
+!keycode  35 = plus asterisk bracketright braceright asciitilde macron
+keycode  35 = plus asterisk bracketright braceright asciitilde dead_tilde
+
+!removing the right quotemarks (hmmm) to allow a more confortable ñ)
+!keycode  57 = n N n N rightdoublequotemark rightsinglequotemark
+keycode  57 = n N n N ntilde Ntilde
+
