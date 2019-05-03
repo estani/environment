@@ -1,9 +1,27 @@
 #!/bin/bash
 CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+case $(uname) in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    CYGWIN*)    machine=Cygwin;;
+    MINGW*)     machine=MinGw;;
+    *)          machine="UNKNOWN:${OPT}"
+esac
+
+echo Info: running on $machine
+
+marker="##environment installed"
 install_bashrc() {
-    echo "Updating .bashrc"
-    echo "source $CUR_DIR/.bashrc" >> ~/.bashrc
+	if [[ $machine == "Mac" ]]; then
+		echo "Updating .bash_profile (mac)"
+		echo "$marker" >> ~/.bash_profile
+		echo "source $CUR_DIR/.bash_profile" >> ~/.bash_profile
+	else
+		echo "Updating .bashrc"
+		echo "$marker" >> ~/.bashrc
+		echo "source $CUR_DIR/.bashrc" >> ~/.bashrc
+	fi
 }
 
 install_vim() {
@@ -18,7 +36,7 @@ install_vim() {
 
 install_vim
 
-if ! grep -q "/$( basename "$CUR_DIR")/.bashrc" ~/.bashrc; then
+if ! grep -q "$marker" ~/.bashrc ~/.bash_profile 2>/dev/null; then
     install_bashrc
 fi
 
