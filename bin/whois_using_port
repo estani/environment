@@ -1,0 +1,37 @@
+#/bin/bash
+
+usage() {
+  cat <<DOC
+Usage: $(basename $0) port
+
+find which process is listening at a given port.
+DOC
+}
+# deprecated
+sudo_active() {
+  # checks if sudo is active without requiring password
+  sudo -S true </dev/null 2>/dev/null
+}
+
+find_usage() {
+  local port=$1
+  pid=$(lsof -i :$port -t -s TCP:LISTEN)
+  if [[ "$pid" ]]; then
+    ps -o pid,args -p $pid
+  else
+    if (($port <= 1024)); then
+      echo "Doesn't seem to be in use... but try sudo, since this port i <1024"
+    else
+      echo not in use.
+    fi
+  fi
+}
+
+port=$1
+(($# != 1)) && usage && exit 1
+#sudo_active || echo "This needs to be run under sudo"
+
+echo "Checking port $port"
+#{ sudo lsof -i -P | grep LISTEN | grep $port; } || echo "Port seems free"
+# cat to avoid the console from trimming the long entries
+find_usage $port | cat
