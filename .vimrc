@@ -38,8 +38,13 @@ set textwidth=0
 :hi CursorLine cterm=NONE ctermbg=17
 :set cursorline
 
+" fix for snipMate
+let g:snipMate = { 'snippet_version': 1 }
+
 filetype on
 filetype plugin on
 filetype indent on
 
 execute pathogen#infect()
+
+
